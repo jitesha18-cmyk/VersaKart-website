@@ -1,0 +1,87 @@
+﻿:root{
+  --bg:#0b0b0b;
+  --card:#111;
+  --muted:#9aa0a6;
+  --accent:#ff3b2f;
+  --accent-2:#2f855a;
+  --radius:12px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,Arial;color:#fff;background:linear-gradient(180deg,#080808,#0f0f0f);}
+
+/* ROLE card */
+.center-screen{height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.role-card{background:#121212;padding:26px;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.6);width:420px;max-width:94%}
+.role-card h1{margin:6px 0;font-size:1.6rem}
+.role-card .muted{color:var(--muted);margin-top:6px}
+.role-buttons{display:flex;gap:10px;margin:16px 0}
+.big{padding:12px 14px;border-radius:12px;font-weight:700}
+.primary{background:linear-gradient(180deg,var(--accent),#ff1f10);border:none;color:#fff;cursor:pointer}
+.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff;cursor:pointer}
+
+/* main app */
+.hidden{display:none !important}
+.app-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:linear-gradient(90deg,#200808,#2a0b0b)}
+.brand{display:flex;gap:12px;align-items:center}
+.logo-wrap{width:40px;height:40px;border-radius:8px;background:#111;display:flex;align-items:center;justify-content:center}
+.title{font-weight:700}
+.subtitle{font-size:.8rem;color:var(--muted);margin-top:2px}
+.header-actions{display:flex;gap:8px;align-items:center}
+.app-main{max-width:980px;margin:18px auto;padding:0 14px}
+.controls{display:flex;gap:10px;margin-bottom:10px}
+.controls input, .controls select{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:#0d0d0d;color:#fff}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;padding-bottom:100px}
+.card{background:var(--card);padding:10px;border-radius:12px;display:flex;flex-direction:column;min-height:260px}
+.card img{width:100%;height:140px;object-fit:cover;border-radius:10px}
+.card .title{font-weight:700;margin-top:8px}
+.card .meta{color:var(--muted);font-size:.9rem;margin-top:6px}
+.card .price{color:var(--accent-2);font-weight:800;margin-top:8px}
+.card .btnRow{display:flex;gap:8px;margin-top:auto}
+.smallBtn{flex:1;padding:8px;border-radius:10px;border:none;cursor:pointer;background:rgba(255,255,255,0.03);color:#fff}
+
+/* modal */
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:100}
+.modal.hidden{display:none}
+.modal-content {
+  background: linear-gradient(180deg, #111, #0e0e0e);
+  padding: 20px;
+  border-radius: 12px;
+  width: 95%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+.modal-content.narrow{max-width:500px}
+.modal-content img{width:100%;height:260px;object-fit:cover;border-radius:10px;margin-bottom:8px}
+.close{position:absolute;right:10px;top:8px;background:#111;border:none;color:#fff;padding:6px;border-radius:8px;cursor:pointer}
+.actions{display:flex;gap:12px;margin-top:12px}
+.btn{padding:10px;border-radius:10px;border:none;cursor:pointer}
+.btn.green{background:linear-gradient(180deg,#28d06b,#1fa84a);color:#fff}
+
+/* form */
+form label{display:block;margin-bottom:10px}
+form input, form textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:#0c0c0c;color:#fff;margin-top:6px}
+.form-msg{color:var(--accent-2);font-weight:700;margin-top:8px}
+
+/* footer */
+.app-footer{position:fixed;left:0;right:0;bottom:0;background:#090909;padding:10px;border-top:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;align-items:center}
+.tabs{display:flex;gap:6px;margin-bottom:6px}
+.tabs button{background:transparent;border:none;color:#fff;padding:8px 10px;border-radius:10px;cursor:pointer}
+.tabs button.active{background:rgba(255,255,255,0.04)}
+small{color:var(--muted);font-size:.8rem}
+
+/* responsive */
+@media (max-width:720px){
+  .role-card{width:92%}
+  .modal-content{width:94%;height:auto}
+  .card{min-height:220px}
+}
+
+/* little button animations */
+button{transition:all .18s ease}
+button:hover{transform:scale(1.03)}
+button:active{transform:scale(0.96)}

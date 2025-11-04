@@ -1,0 +1,152 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VersaKart — LocalLink</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <meta name="theme-color" content="#2b0f0f"/>
+</head>
+<body>
+  <!-- SIGN-IN / CREATE ACCOUNT MODAL (hidden until needed) -->
+  <div id="signInModal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-content narrow">
+      <button class="close" id="closeSignIn">&times;</button>
+      <h2 id="signInTitle">Sign in / Create account</h2>
+
+      <form id="signInForm">
+        <input type="hidden" name="role" id="signRole" value="buyer" />
+        <label>User ID (unique)
+          <input name="userId" id="userId" placeholder="e.g. jitesha01" required />
+        </label>
+
+        <label>Display name
+          <input name="displayName" id="displayName" placeholder="Your name" required />
+        </label>
+
+        <div id="sellerFields" style="display:none">
+          <label>Seller name (unique)
+            <input name="sellerName" id="sellerName" placeholder="Store name (unique)" />
+          </label>
+          <small class="muted">Seller name must be unique (visible to buyers).</small>
+        </div>
+
+        <div style="text-align:center;margin-top:12px;">
+          <button class="primary" type="submit">Sign In / Create</button>
+        </div>
+      </form>
+
+      <div style="text-align:center;margin-top:8px;">
+        <button id="signOutBtn" class="ghost">Sign out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROLE SELECTION -->
+  <div id="roleScreen" class="center-screen">
+    <div class="role-card">
+      <div class="logo-inline">
+        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="1.5" width="21" height="21" rx="4" stroke="#222" stroke-width="0.8" fill="#fff"/>
+          <path d="M6 12v4h12v-4" stroke="#ff3b2f" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 4v6" stroke="#ff3b2f" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h1>VersaKart</h1>
+      <p class="muted">Helping the Necessary</p>
+      <div class="role-buttons">
+        <button id="btnBuyer" class="big primary">I'm a Buyer</button>
+        <button id="btnSeller" class="big ghost">I'm a Seller</button>
+      </div>
+      <small class="muted">Choose a role to proceed</small>
+    </div>
+  </div>
+
+  <!-- MAIN APP (hidden until role chosen) -->
+  <div id="app" class="hidden">
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-wrap"><svg width="40" height="40" viewBox="0 0 24 24" fill="none"><rect x="1.5" y="1.5" width="21" height="21" rx="4" fill="#111"/></svg></div>
+        <div>
+          <div class="title">VersaKart</div>
+          <div class="subtitle">Helping the Necessary</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+  <!-- current user placeholder (JS will populate) -->
+  <div id="currentUserInfo" style="color:#ddd;font-size:0.9rem;margin-right:8px;"></div>
+
+  <!-- Sign out button (hidden when not signed in) -->
+  <button id="btnSignOut" class="ghost" title="Sign out" style="display:none;margin-right:6px;">Sign out</button>
+
+  <!-- Add item button -->
+  <button id="openSellerFormTop" class="ghost" title="Add item">+ Add</button>
+</div>
+
+    </header>
+
+    <main class="app-main">
+      <section class="controls">
+        <input id="searchInput" placeholder="Search products or categories..." />
+        <select id="categoryFilter"><option value="">All categories</option></select>
+      </section>
+
+      <section id="productGrid" class="grid" aria-live="polite"></section>
+    </main>
+
+    <!-- PRODUCT DETAIL -->
+    <div id="detailModal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <button class="close" id="closeDetail">&times;</button>
+        <img id="detailImage" alt="Product image" />
+        <h2 id="detailName"></h2>
+        <div class="meta" id="detailSeller"></div>
+        <div class="price" id="detailPrice"></div>
+        <p id="detailDesc"></p>
+        <div class="actions">
+          <button id="callBtn" class="btn">Call Seller</button>
+          <button id="waBtn" class="btn green">Message on WhatsApp</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SELLER FORM -->
+    <div id="formModal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-content narrow">
+        <button class="close" id="closeForm">&times;</button>
+        <h2>Add Product</h2>
+        <form id="productForm">
+          <label>Product Name<input name="productName" required /></label>
+          <label>Category<input name="category" required /></label>
+          <label>Price (₹)<input name="price" type="number" required /></label>
+          <label>Description<textarea name="description" rows="3"></textarea></label>
+          <label>Seller Name<input name="sellerName" required /></label>
+          <label>Contact Number<input name="contactNumber" placeholder="9198..." required /></label>
+          <label>Location Text<input name="locationText" placeholder="Town, City" /></label>
+          <label>Latitude<input name="latitude" /></label>
+          <label>Longitude<input name="longitude" /></label>
+          <label>Product Image (photo)<input name="imageFile" type="file" accept="image/*" /></label>
+          <div style="text-align:center;margin-top:12px;">
+            <button type="submit" class="primary">Add Product</button>
+          </div>
+        </form>
+        <div id="formMsg" class="form-msg hidden">Product added!</div>
+      </div>
+    </div>
+
+    <footer class="app-footer">
+      <div class="tabs">
+        <button id="tabHome" class="active">Home</button>
+        <button id="tabProducts">Products</button>
+        <button id="tabRegister">Item Registration</button>
+        <button id="tabMap">Map</button>
+      </div>
+      <small class="muted">LocalLink • Demo</small>
+    </footer>
+  </div>
+
+<script src="app.js" defer></script>
+</body>
+</html>
