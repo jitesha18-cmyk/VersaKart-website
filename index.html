@@ -30,6 +30,7 @@
             <input name="sellerName" id="sellerName" placeholder="Store name (unique)" />
           </label>
           <small class="muted">Seller name must be unique (visible to buyers).</small>
+           <label>Seller UPI VPA (optional)<input name="sellerUpi" id="sellerUpi" placeholder="merchant@upi" /></label>
         </div>
 
         <div style="text-align:center;margin-top:12px;">
@@ -112,6 +113,24 @@
       </div>
     </div>
 
+<!-- BUY MODAL -->
+<div id="buyModal" class="modal hidden" role="dialog" aria-modal="true">
+  <div class="modal-content narrow">
+    <button class="close" id="closeBuyModal">&times;</button>
+    <h2 id="buyTitle">Buy</h2>
+    <div id="buyBody">
+      <p id="buyProductText"></p>
+      <div style="display:flex;gap:8px;margin-top:12px;">
+        <button id="buyViaUpi" class="primary">Pay with UPI</button>
+        <button id="buyViaWa" class="ghost">Order on WhatsApp</button>
+      </div>
+      <small class="muted" style="display:block;margin-top:8px;">
+        Tip: UPI opens only on mobile. If UPI doesn't open, use WhatsApp to message the seller.
+      </small>
+    </div>
+  </div>
+</div>
+
     <!-- SELLER FORM -->
     <div id="formModal" class="modal hidden" role="dialog" aria-modal="true">
       <div class="modal-content narrow">
@@ -126,11 +145,18 @@
           <label>Contact Number<input name="contactNumber" placeholder="9198..." required /></label>
           <label>Location Text<input name="locationText" placeholder="Town, City" /></label>
           <label>Latitude<input name="latitude" /></label>
-          <label>Longitude<input name="longitude" /></label>
-          <label>Product Image (photo)<input name="imageFile" type="file" accept="image/*" /></label>
-          <div style="text-align:center;margin-top:12px;">
-            <button type="submit" class="primary">Add Product</button>
-          </div>
+         <label>Longitude<input name="longitude" /></label>
+
+<!-- 🔹 Add this new field for seller UPI -->
+<label>Seller UPI ID (for payments)
+  <input name="sellerUpi" placeholder="example@upi" />
+</label>
+
+<label>Product Image (photo)<input name="imageFile" type="file" accept="image/*" /></label>
+<div style="text-align:center;margin-top:12px;">
+  <button type="submit" class="primary">Add Product</button>
+</div>
+
         </form>
         <div id="formMsg" class="form-msg hidden">Product added!</div>
       </div>
@@ -146,6 +172,27 @@
       <small class="muted">LocalLink • Demo</small>
     </footer>
   </div>
+<!-- MOCK CHECKOUT / PAYMENT SIMULATOR -->
+<div id="mockPayModal" class="modal hidden" role="dialog" aria-modal="true">
+  <div class="modal-content narrow">
+    <button class="close" id="closeMockPay">&times;</button>
+    <h2 id="mockPayTitle">Checkout</h2>
+
+    <div id="mockPayBody">
+      <p id="mockPayProduct"></p>
+      <p><strong>Amount:</strong> ₹ <span id="mockPayAmount">0.00</span></p>
+
+      <div style="display:flex;gap:10px;margin-top:12px;">
+        <button id="confirmMockPay" class="primary">Pay (mock)</button>
+        <button id="cancelMockPay" class="ghost">Cancel</button>
+      </div>
+
+      <div id="mockPayStatus" style="margin-top:12px;display:none;">
+        <p id="mockPayMsg">Processing payment…</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="app.js" defer></script>
 </body>
